@@ -119,8 +119,19 @@ def get_basin_list() -> List:
     List
         List containing the 8-digit basin code of all basins
     """
-    basin_file = Path(__file__).absolute().parent.parent / "data/basin_list.txt"
-    with basin_file.open('r') as fp:
-        basins = fp.readlines()
-    basins = [basin.strip() for basin in basins]
-    return basins
+    basin_file = Path(__file__).absolute().parent.parent / "data/fips_stn.csv"
+    basins = pd.read_csv(basin_file)
+    return basins['stn'].tolist()
+
+"""def get_basin_dict() -> Dict:
+    Generate dictionary mapping station names to FIPS codes.
+
+    Returns
+    -------
+    Dict
+        Dict mapping stn : FIPS
+    
+    basin_file = Path(__file__).absolute().parent.parent / "data/fips_stn.csv"
+    basins = pd.read_csv(basin_file)
+    basins = basins.set_index('stn')
+    return basins.to_dict()"""
