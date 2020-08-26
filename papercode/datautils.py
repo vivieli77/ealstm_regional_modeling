@@ -16,13 +16,14 @@ from typing import List, Tuple
 import numpy as np
 import pandas as pd
 from numba import njit
+from utils import get_basin_dict
 
-# Maurer mean/std calculated over all basins in period 01.10.1999 until 30.09.2008
+# Means and stds for later normalizing and re-scaling
 SCALER = {
-    'input_means': np.array([3.17563234, 372.01003929, 17.31934062, 3.97393362, 924.98004197]),
-    'input_stds': np.array([6.94344737, 131.63560881, 10.86689718, 10.3940032, 629.44576432]),
-    'output_mean': np.array([11.587152]), # fixed
-    'output_std': np.array([79.574436]) # fixed
+    'input_means': np.array([59.58, 42.17, 71.14, 2.56, 29.92]),
+    'input_stds': np.array([18.24, 19.42, 17.38, 3.23, 0.55]),
+    'output_mean': np.array([11.587152]), 
+    'output_std': np.array([79.574436]) 
 }
 
 INVALID_ATTR = []
@@ -43,14 +44,14 @@ def add_camels_attributes(camels_root: PosixPath, db_path: str = None):
     RuntimeError
         If CAMELS attributes folder could not be found.
     """
-    attributes_path = Path(camels_root) / 'data'
+    attributes_path = Path(camels_root)
 
     if not attributes_path.exists():
         raise RuntimeError(f"Attribute folder not found at {attributes_path}")
 
-    txt_file = 'casedemo_us.csv'
-
-    df = pd.read_csv(txt_file)
+    df = pd.read_csv('demo.csv', dtype={'FIPS': str})
+    df['FIPS'] = df['FIPS'].apply(lambda x: x.zfill(5))
+    df = df.set_index('FIPS')
 
     if db_path is None:
         db_path = str(Path(__file__).absolute().parent.parent / 'data' / 'attributes.db')
@@ -224,11 +225,12 @@ def load_forcing(camels_root: PosixPath, basin: str) -> Tuple[pd.DataFrame, int]
     RuntimeError
         If not forcing file was found.
     """
-    forcing_path = camels_root / 'data'
-    files = list(forcing_path.glob('envirodata_*.csv'))
-    file_path = [f for f in files if f.name[11:-4] == basin]
+    basindict = get_basin_dict()
+    forcing_path = camels_root / 'envirodata' 
+    files = list(forcing_path.glob('*.csv'))
+    file_path = [f for f in files if f.name[:-4] == basindict[basin]]
     if len(file_path) == 0:
-        raise RuntimeError(f'No file for Basin {basin} at {file_path}')
+        raise RuntimeError(f'No file for Basin {basindict[basin]} at {file_path}')
     else:
         file_path = file_path[0]
 
@@ -261,9 +263,9 @@ def load_discharge(camels_root: PosixPath, basin: str, area: int) -> pd.Series:
     RuntimeError
         If no discharge file was found.
     """
-    discharge_path = camels_root / 'data/dailycases.csv'
+    discharge_path = camels_root / 'dailycases.csv'
     df = pd.read_csv(discharge_path)
-    QObs = df.loc[df['stn'] == basin].T.drop("stn").reset_index()
+    QObs = df.loc[df['FIPS'] == basin].T.drop("FIPS").reset_index()
     QObs.index = pd.to_datetime(QObs['index'])
     QObs = QObs.drop('index', axis=1).squeeze()
     #basin_dict = get_basin_dict()

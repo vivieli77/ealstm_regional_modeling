@@ -33,7 +33,7 @@ from papercode.ealstm import EALSTM
 from papercode.lstm import LSTM
 from papercode.metrics import calc_nse
 from papercode.nseloss import NSELoss
-from papercode.utils import create_h5_files, get_basin_list
+from papercode.utils import create_h5_files, get_basin_list, get_basin_dict
 
 ###########
 # Globals #
@@ -50,11 +50,11 @@ GLOBAL_SETTINGS = {
     'initial_forget_gate_bias': 5,
     'log_interval': 50,
     'learning_rate': 1e-3,
-    'seq_length': 270,
-    'train_start': pd.to_datetime('01101999', format='%d%m%Y'),
-    'train_end': pd.to_datetime('30092008', format='%d%m%Y'),
-    'val_start': pd.to_datetime('01101989', format='%d%m%Y'),
-    'val_end': pd.to_datetime('30091999', format='%d%m%Y')
+    'seq_length': 1,
+    'train_start': pd.to_datetime('01032020', format='%d%m%Y'),
+    'train_end': pd.to_datetime('30062020', format='%d%m%Y'),
+    'val_start': pd.to_datetime('01072020', format='%d%m%Y'),
+    'val_end': pd.to_datetime('23082020', format='%d%m%Y')
 }
 
 # check if GPU is available

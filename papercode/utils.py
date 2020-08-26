@@ -26,7 +26,7 @@ def create_h5_files(camels_root: PosixPath,
                     basins: List,
                     dates: List,
                     with_basin_str: bool = True,
-                    seq_length: int = 270):
+                    seq_length: int = 1):
     """[summary]
     
     Parameters
@@ -35,7 +35,7 @@ def create_h5_files(camels_root: PosixPath,
         Path to the main directory of the CAMELS data set
     out_file : PosixPath
         Path of the location, where the hdf5 file should be stored
-    basins : List
+    basins : Dict
         List containing the 8-digit USGS gauge id
     dates : List
         List of start and end date of the discharge period to use, when combining the data.
@@ -82,7 +82,6 @@ def create_h5_files(camels_root: PosixPath,
                                                   chunks=True)
 
         for basin in tqdm(basins, file=sys.stdout):
-
             dataset = CamelsTXT(camels_root=camels_root,
                                 basin=basin,
                                 is_train=True,
@@ -119,19 +118,22 @@ def get_basin_list() -> List:
     List
         List containing the 8-digit basin code of all basins
     """
-    basin_file = Path(__file__).absolute().parent.parent / "data/fips_stn.csv"
-    basins = pd.read_csv(basin_file)
-    return basins['stn'].tolist()
+    basin_file = Path(__file__).absolute().parent.parent / "data/fips_list.txt"
+    with basin_file.open('r') as fp:
+        basins = fp.readlines()
+    basins = [basin.strip() for basin in basins]
+    return basins
 
-"""def get_basin_dict() -> Dict:
-    Generate dictionary mapping station names to FIPS codes.
+def get_basin_dict() -> Dict:
+    """Generate dictionary mapping station names to FIPS codes.
 
     Returns
     -------
     Dict
         Dict mapping stn : FIPS
-    
+    """
     basin_file = Path(__file__).absolute().parent.parent / "data/fips_stn.csv"
-    basins = pd.read_csv(basin_file)
-    basins = basins.set_index('stn')
-    return basins.to_dict()"""
+    fips_stn = pd.read_csv(basin_file)
+    fips_stn_dict = fips_stn.to_dict()
+    fips_stn_dict = fips_stn_dict['stn']
+    return fips_stn_dict

@@ -55,7 +55,7 @@ class CamelsTXT(Dataset):
                  basin: str,
                  dates: List,
                  is_train: bool,
-                 seq_length: int = 270,
+                 seq_length: int = 1,
                  with_attributes: bool = False,
                  attribute_means: pd.Series = None,
                  attribute_stds: pd.Series = None,
@@ -103,7 +103,7 @@ class CamelsTXT(Dataset):
     def _load_data(self) -> Tuple[torch.Tensor, torch.Tensor]:
         """Load input and output data from text files."""
         df, area = load_forcing(self.camels_root, self.basin)
-        df['QObs(mm/d)'] = load_discharge(self.camels_root, self.basin, area)
+        df['Cases/100k Obs'] = load_discharge(self.camels_root, self.basin, area)
 
         # we use (seq_len) time steps before start for warmup
         start_date = self.dates[0] - pd.DateOffset(days=self.seq_length - 1)
@@ -116,11 +116,11 @@ class CamelsTXT(Dataset):
 
         # use all meteorological variables as inputs
         x = np.array([
-            df['prcp(mm/day)'].values, df['srad(W/m2)'].values, df['tmax(C)'].values,
-            df['tmin(C)'].values, df['vp(Pa)'].values
+            df['TempF_Avg'].values, df['Dew PtF_Low'].values, df['Humidity%_Avg'].values,
+            df['Speedmph_Avg'].values, df['Pressurein_High'].values
         ]).T
 
-        y = np.array([df['QObs(mm/d)'].values]).T
+        y = np.array([df['Cases/100k Obs'].values]).T
 
         # normalize data, reshape for LSTM training and remove invalid samples
         x = normalize_features(x, variable='inputs')
