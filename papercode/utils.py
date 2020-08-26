@@ -124,16 +124,4 @@ def get_basin_list() -> List:
     basins = [basin.strip() for basin in basins]
     return basins
 
-def get_basin_dict():
-    """Generate dictionary mapping station names to FIPS codes.
 
-    Returns
-    -------
-    Dict
-        Dict mapping stn : FIPS
-    """
-    basin_file = Path(__file__).absolute().parent.parent / "data/fips_stn.csv"
-    fips_stn = pd.read_csv(basin_file)
-    fips_stn_dict = fips_stn.to_dict()
-    fips_stn_dict = fips_stn_dict['stn']
-    return fips_stn_dict

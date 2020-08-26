@@ -19,7 +19,7 @@ import torch
 from torch.utils.data import Dataset
 
 from .datautils import (load_attributes, load_discharge, load_forcing,
-                        normalize_features, reshape_data)
+                        normalize_features, reshape_data, get_basin_dict)
 
 
 class CamelsTXT(Dataset):
@@ -282,7 +282,7 @@ class CamelsH5(Dataset):
         return basins
 
     def _load_attributes(self):
-        df = load_attributes(self.db_path, self.basins, drop_lat_lon=True)
+        df = load_attributes(self.db_path, self.basins)
 
         # store means and stds
         self.attribute_means = df.mean()

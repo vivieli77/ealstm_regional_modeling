@@ -111,6 +111,7 @@ class EALSTM(nn.Module):
         # calculate input gate only once because inputs are static
         bias_s_batch = (self.bias_s.unsqueeze(0).expand(batch_size, *self.bias_s.size()))
         i = torch.sigmoid(torch.addmm(bias_s_batch, x_s, self.weight_sh))
+        #i = torch.sigmoid(torch.addmm(bias_s_batch, self.weight_sh, x_s))
 
         # perform forward steps over input sequence
         for t in range(seq_len):

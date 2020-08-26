@@ -12,11 +12,11 @@ see <https://opensource.org/licenses/Apache-2.0>
 import sqlite3
 from pathlib import Path, PosixPath
 from typing import List, Tuple
+import os
 
 import numpy as np
 import pandas as pd
 from numba import njit
-#from .utils import get_basin_dict
 
 # Means and stds for later normalizing and re-scaling
 SCALER = {
@@ -44,12 +44,13 @@ def add_camels_attributes(camels_root: PosixPath, db_path: str = None):
     RuntimeError
         If CAMELS attributes folder could not be found.
     """
-    attributes_path = Path(camels_root)
+    attributes_path = Path(camels_root) / 'demo.csv'
 
     if not attributes_path.exists():
         raise RuntimeError(f"Attribute folder not found at {attributes_path}")
 
-    df = pd.read_csv('demo.csv', dtype={'FIPS': str})
+    #print('hello' + os.getcwd())
+    df = pd.read_csv(attributes_path, dtype={'FIPS': str})
     df['FIPS'] = df['FIPS'].apply(lambda x: x.zfill(5))
     df = df.set_index('FIPS')
 
@@ -169,7 +170,8 @@ def rescale_features(feature: np.ndarray, variable: str) -> np.ndarray:
     return feature
 
 
-@njit
+#@njit(np.ndarray(int, int), np.ndarray(int, int), int)
+#@njit(int[:,:], int[:,:], int)
 def reshape_data(x: np.ndarray, y: np.ndarray, seq_length: int) -> Tuple[np.ndarray, np.ndarray]:
     """Reshape data into LSTM many-to-one input samples
 
@@ -226,6 +228,7 @@ def load_forcing(camels_root: PosixPath, basin: str) -> Tuple[pd.DataFrame, int]
         If not forcing file was found.
     """
     basindict = get_basin_dict()
+    #print(basindict)
     forcing_path = camels_root / 'envirodata' 
     files = list(forcing_path.glob('*.csv'))
     file_path = [f for f in files if f.name[:-4] == basindict[basin]]
@@ -265,9 +268,27 @@ def load_discharge(camels_root: PosixPath, basin: str, area: int) -> pd.Series:
     """
     discharge_path = camels_root / 'dailycases.csv'
     df = pd.read_csv(discharge_path)
-    QObs = df.loc[df['FIPS'] == basin].T.drop("FIPS").reset_index()
+    df['FIPS'] = df['FIPS'].apply(str).apply(lambda x: x.zfill(5))
+    QObs = df.loc[df['FIPS'] == basin].T.drop("FIPS").reset_index().iloc[1:,:]
     QObs.index = pd.to_datetime(QObs['index'])
     QObs = QObs.drop('index', axis=1).squeeze()
     #basin_dict = get_basin_dict()
     #fips = basin_dict['basin']
+    #print(QObs)
     return QObs
+
+def get_basin_dict():
+    """Generate dictionary mapping station names to FIPS codes.
+
+    Returns
+    -------
+    Dict
+        Dict mapping stn : FIPS
+    """
+    basin_file = Path(__file__).absolute().parent.parent / "data/fips_stn.csv"
+    fips_stn = pd.read_csv(basin_file)
+    fips_stn['FIPS'] = fips_stn['FIPS'].apply(str).apply(lambda x: x.zfill(5))
+    fips_stn = fips_stn.set_index('FIPS')
+    fips_stn_dict = fips_stn.to_dict()
+    fips_stn_dict = fips_stn_dict['stn']
+    return fips_stn_dict
