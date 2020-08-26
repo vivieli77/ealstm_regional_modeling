@@ -16,7 +16,7 @@ from typing import List, Tuple
 import numpy as np
 import pandas as pd
 from numba import njit
-from utils import get_basin_dict
+#from .utils import get_basin_dict
 
 # Means and stds for later normalizing and re-scaling
 SCALER = {

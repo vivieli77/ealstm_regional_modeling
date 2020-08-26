@@ -33,7 +33,7 @@ from papercode.ealstm import EALSTM
 from papercode.lstm import LSTM
 from papercode.metrics import calc_nse
 from papercode.nseloss import NSELoss
-from papercode.utils import create_h5_files, get_basin_list, get_basin_dict
+from papercode.utils import (create_h5_files, get_basin_list, get_basin_dict)
 
 ###########
 # Globals #

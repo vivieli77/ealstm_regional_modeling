@@ -124,7 +124,7 @@ def get_basin_list() -> List:
     basins = [basin.strip() for basin in basins]
     return basins
 
-def get_basin_dict() -> Dict:
+def get_basin_dict():
     """Generate dictionary mapping station names to FIPS codes.
 
     Returns
