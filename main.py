@@ -45,7 +45,7 @@ GLOBAL_SETTINGS = {
     'clip_norm': True,
     'clip_value': 1,
     'dropout': 0.4,
-    'epochs': 30,
+    'epochs': 4,
     'hidden_size': 256,
     'initial_forget_gate_bias': 5,
     'log_interval': 50,
@@ -405,6 +405,13 @@ def train_epoch(model: nn.Module, optimizer: torch.optim.Optimizer, loss_func: n
 
         # MSELoss
         if use_mse:
+            print('Predictions')
+            print('--------------------------')
+            print(predictions)
+            print('--------------------------')
+            print('y')
+            print('--------------------------')
+            print(y)
             loss = loss_func(predictions, y)
 
         # NSELoss needs std of each basin for each sample
@@ -441,8 +448,7 @@ def evaluate(user_cfg: Dict):
     # get attribute means/stds
     db_path = str(user_cfg["run_dir"] / "attributes.db")
     attributes = load_attributes(db_path=db_path, 
-                                 basins=basins,
-                                 drop_lat_lon=True)
+                                 basins=basins)
     means = attributes.mean()
     stds = attributes.std()
 
