@@ -101,7 +101,7 @@ def load_attributes(db_path: str,
         drop_names = [c for c in df.columns if c in INVALID_ATTR]
 
     df = df.drop(drop_names, axis=1)
-
+    #print(df)
     return df
 
 

@@ -150,7 +150,7 @@ class CamelsTXT(Dataset):
         return x, y
 
     def _load_attributes(self) -> torch.Tensor:
-        df = load_attributes(self.db_path, [self.basin], drop_lat_lon=True)
+        df = load_attributes(self.db_path, [self.basin])
 
         # normalize data
         df = (df - self.attribute_means) / self.attribute_stds

@@ -45,7 +45,7 @@ GLOBAL_SETTINGS = {
     'clip_norm': True,
     'clip_value': 1,
     'dropout': 0.4,
-    'epochs': 4,
+    'epochs': 30,
     'hidden_size': 256,
     'initial_forget_gate_bias': 5,
     'log_interval': 50,
@@ -400,18 +400,19 @@ def train_epoch(model: nn.Module, optimizer: torch.optim.Optimizer, loss_func: n
         # forward pass through EALSTM
         elif len(data) == 4:
             x_d, x_s, y, q_stds = data
+            #print(data)
             x_d, x_s, y = x_d.to(DEVICE), x_s.to(DEVICE), y.to(DEVICE)
             predictions = model(x_d, x_s[:, 0, :])[0]
 
         # MSELoss
         if use_mse:
-            print('Predictions')
+            """print('Predictions')
             print('--------------------------')
             print(predictions)
             print('--------------------------')
             print('y')
             print('--------------------------')
-            print(y)
+            print(y)"""
             loss = loss_func(predictions, y)
 
         # NSELoss needs std of each basin for each sample
