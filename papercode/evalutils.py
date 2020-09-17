@@ -145,6 +145,7 @@ def eval_lstm_models(run_dirs: List, func: Callable) -> dict:
         Dictionary, containing the metric value for each basin of each random seed, as well as the 
         ensemble mean.
     """
+    print('hello')
     single_models = {}
     model_ensemble = defaultdict(dict)
     for run_dir in tqdm.tqdm(run_dirs):

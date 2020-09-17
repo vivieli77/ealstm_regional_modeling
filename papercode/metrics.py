@@ -37,13 +37,14 @@ def calc_nse(obs: np.ndarray, sim: np.ndarray) -> float:
     # make sure that metric is calculated over the same dimension
     obs = obs.flatten()
     sim = sim.flatten()
-
+    print(obs)
+    print(sim)
     if obs.shape != sim.shape:
         raise RuntimeError("obs and sim must be of the same length.")
 
     # denominator of the fraction term
     denominator = np.sum((obs - np.mean(obs))**2)
-
+    print(denominator)
     # this would lead to a division by zero error and nse is defined as -inf
     if denominator == 0:
         msg = [
