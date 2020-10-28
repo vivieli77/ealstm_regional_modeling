@@ -10,7 +10,7 @@ see <https://opensource.org/licenses/Apache-2.0>
 """
 
 import numpy as np
-
+from sklearn.metrics import mean_squared_error
 
 def calc_nse(obs: np.ndarray, sim: np.ndarray) -> float:
     """Nash-Sutcliffe-Effiency
@@ -37,8 +37,8 @@ def calc_nse(obs: np.ndarray, sim: np.ndarray) -> float:
     # make sure that metric is calculated over the same dimension
     obs = obs.flatten()
     sim = sim.flatten()
-    print(obs)
-    print(sim)
+    #print(obs)
+    #print(sim)
     if obs.shape != sim.shape:
         raise RuntimeError("obs and sim must be of the same length.")
 
@@ -61,6 +61,142 @@ def calc_nse(obs: np.ndarray, sim: np.ndarray) -> float:
     nse_val = 1 - numerator / denominator
 
     return nse_val
+
+def calc_rmse(obs: np.ndarray, sim: np.ndarray) -> float:
+    """Nash-Sutcliffe-Effiency
+    
+    Parameters
+    ----------
+    obs : np.ndarray
+        Array containing the discharge observations
+    sim : np.ndarray
+        Array containing the discharge simulations
+    
+    Returns
+    -------
+    float
+        Root Mean-Squared Error
+    
+    Raises
+    ------
+    RuntimeError
+        If `obs` and `sim` don't have the same length
+    RuntimeError
+        If all values in the observations are equal
+    """
+    # make sure that metric is calculated over the same dimension
+    obs = obs.flatten()
+    sim = sim.flatten()
+    #print(obs)
+    #print(sim)
+    if obs.shape != sim.shape:
+        raise RuntimeError("obs and sim must be of the same length.")
+
+    rmse_val = mean_squared_error(obs, sim, squared=False)
+    
+    return rmse_val
+
+def calc_mse(obs: np.ndarray, sim: np.ndarray) -> float:
+    """Nash-Sutcliffe-Effiency
+    
+    Parameters
+    ----------
+    obs : np.ndarray
+        Array containing the discharge observations
+    sim : np.ndarray
+        Array containing the discharge simulations
+    
+    Returns
+    -------
+    float
+        Root Mean-Squared Error
+    
+    Raises
+    ------
+    RuntimeError
+        If `obs` and `sim` don't have the same length
+    RuntimeError
+        If all values in the observations are equal
+    """
+    # make sure that metric is calculated over the same dimension
+    obs = obs.flatten()
+    sim = sim.flatten()
+    #print(obs)
+    #print(sim)
+    if obs.shape != sim.shape:
+        raise RuntimeError("obs and sim must be of the same length.")
+
+    rmse_val = mean_squared_error(obs, sim, squared=True)
+    
+    return rmse_val
+
+def calc_me(obs: np.ndarray, sim: np.ndarray) -> float:
+    """Nash-Sutcliffe-Effiency
+    
+    Parameters
+    ----------
+    obs : np.ndarray
+        Array containing the discharge observations
+    sim : np.ndarray
+        Array containing the discharge simulations
+    
+    Returns
+    -------
+    float
+        Mean Error
+    
+    Raises
+    ------
+    RuntimeError
+        If `obs` and `sim` don't have the same length
+    RuntimeError
+        If all values in the observations are equal
+    """
+    # make sure that metric is calculated over the same dimension
+    obs = obs.flatten()
+    sim = sim.flatten()
+    #print(obs)
+    #print(sim)
+    if obs.shape != sim.shape:
+        raise RuntimeError("obs and sim must be of the same length.")
+
+    me_val = np.mean(sim - obs)
+    
+    return me_val
+
+def calc_corr(obs: np.ndarray, sim: np.ndarray) -> float:
+    """Nash-Sutcliffe-Effiency
+    
+    Parameters
+    ----------
+    obs : np.ndarray
+        Array containing the discharge observations
+    sim : np.ndarray
+        Array containing the discharge simulations
+    
+    Returns
+    -------
+    float
+        Mean Error
+    
+    Raises
+    ------
+    RuntimeError
+        If `obs` and `sim` don't have the same length
+    RuntimeError
+        If all values in the observations are equal
+    """
+    # make sure that metric is calculated over the same dimension
+    obs = obs.flatten()
+    sim = sim.flatten()
+    #print(obs)
+    #print(sim)
+    if obs.shape != sim.shape:
+        raise RuntimeError("obs and sim must be of the same length.")
+
+    corr_val = np.corrcoef(obs, sim)[1][0]
+    
+    return corr_val
 
 
 def calc_alpha_nse(obs: np.ndarray, sim: np.ndarray) -> float:

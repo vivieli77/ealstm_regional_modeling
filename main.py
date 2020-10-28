@@ -44,13 +44,13 @@ GLOBAL_SETTINGS = {
     'batch_size': 256,
     'clip_norm': True,
     'clip_value': 1,
-    'dropout': 0.4,
+    #'dropout': 0.4,
     'epochs': 30,
-    'hidden_size': 256,
+    #'hidden_size': 256,
     'initial_forget_gate_bias': 5,
     'log_interval': 50,
     'learning_rate': 1e-3,
-    'seq_length': 1,
+    'seq_length': 7,
     'train_start': pd.to_datetime('01032020', format='%d%m%Y'),
     'train_end': pd.to_datetime('30062020', format='%d%m%Y'),
     'val_start': pd.to_datetime('01072020', format='%d%m%Y'),
@@ -98,6 +98,14 @@ def get_args() -> Dict:
                         type=bool,
                         default=False,
                         help="If True, uses mean squared error as loss function.")
+    parser.add_argument('--hidden_size',
+                        type=int,
+                        default=256,
+                        help="Number of hidden states in model.")
+    parser.add_argument('--dropout',
+                        type=float,
+                        default=0.4,
+                        help="Dropout rate for LSTM model.")
     cfg = vars(parser.parse_args())
 
     # Validation checks
@@ -142,6 +150,7 @@ def _setup_run(cfg: Dict) -> Dict:
     hour = f"{now.hour}".zfill(2)
     minute = f"{now.minute}".zfill(2)
     run_name = f'run_{day}{month}_{hour}{minute}_seed{cfg["seed"]}'
+    #run_name = f'run_seqlen30_seed{cfg["seed"]}'
     cfg['run_dir'] = Path(__file__).absolute().parent / "runs" / run_name
     if not cfg["run_dir"].is_dir():
         cfg["train_dir"] = cfg["run_dir"] / 'data' / 'train'
@@ -326,7 +335,8 @@ def train(cfg):
 
     # create model and optimizer
     input_size_stat = 0 if cfg["no_static"] else 14
-    input_size_dyn = 5 if (cfg["no_static"] or not cfg["concat_static"]) else 32
+    #input_size_dyn = 5 if (cfg["no_static"] or not cfg["concat_static"]) else 32
+    input_size_dyn = 5 if (cfg['camels_root'] == "data") else 6
     model = Model(input_size_dyn=input_size_dyn,
                   input_size_stat=input_size_stat,
                   hidden_size=cfg["hidden_size"],
@@ -340,7 +350,7 @@ def train(cfg):
     if cfg["use_mse"]:
         loss_func = nn.MSELoss()
     else:
-        loss_func = NSELoss()
+        loss_func = MELoss()
 
     # reduce learning rates after each 10 epochs
     learning_rates = {11: 5e-4, 21: 1e-4}
@@ -455,7 +465,7 @@ def evaluate(user_cfg: Dict):
 
     # create model
     input_size_stat = 0 if run_cfg["no_static"] else 14
-    input_size_dyn = 5 if (run_cfg["no_static"] or not run_cfg["concat_static"]) else 32
+    input_size_dyn = 6 if (run_cfg["no_static"] or not run_cfg["concat_static"]) else 32
     model = Model(input_size_dyn=input_size_dyn,
                   input_size_stat=input_size_stat,
                   hidden_size=run_cfg["hidden_size"],

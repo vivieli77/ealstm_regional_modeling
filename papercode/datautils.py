@@ -20,8 +20,8 @@ from numba import njit
 
 # Means and stds for later normalizing and re-scaling
 SCALER = {
-    'input_means': np.array([59.58, 42.17, 71.14, 2.56, 29.92]),
-    'input_stds': np.array([18.24, 19.42, 17.38, 3.23, 0.55]),
+    'input_means': np.array([59.58, 42.17, 71.14, 2.56, 29.92, 145.11]),
+    'input_stds': np.array([18.24, 19.42, 17.38, 3.23, 0.55, 75.52]),
     'output_mean': np.array([11.587152]), 
     'output_std': np.array([79.574436]) 
 }

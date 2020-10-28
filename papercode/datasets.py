@@ -117,7 +117,7 @@ class CamelsTXT(Dataset):
         # use all meteorological variables as inputs
         x = np.array([
             df['TempF_Avg'].values, df['Dew PtF_Low'].values, df['Humidity%_Avg'].values,
-            df['Speedmph_Avg'].values, df['Pressurein_High'].values
+            df['Speedmph_Avg'].values, df['Pressurein_High'].values, df["Mobility%"].values
         ]).T
 
         y = np.array([df['Cases/100k Obs'].values]).T

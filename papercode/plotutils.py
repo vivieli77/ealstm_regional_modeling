@@ -58,12 +58,143 @@ model_draw_style = {
         'marker': 's',
         'label': 'EA-LSTM NSE'
     },
+    'set1': {
+        'single_color': '#b04c00',
+        'linestyle': '-',
+        'marker': 's',
+        'label': 'Hidden size = 64; Dropout rate = 0.05'
+    },
+    'set2': {
+        'single_color': '#0080ab',
+        'linestyle': '-',
+        'marker': 's',
+        'label': 'Hidden size = 64; Dropout rate = 0.1'
+    },
+    'set3': {
+        'single_color': '#fcba03',
+        'linestyle': '-',
+        'marker': 's',
+        'label': 'Hidden size = 64; Dropout rate = 0.2'
+    },
+    'set4': {
+        'single_color': '#bd1c8a',
+        'linestyle': '-',
+        'marker': 's',
+        'label': 'Hidden size = 64; Dropout rate = 0.4'
+    },
+    'set5': {
+        'single_color': '#b04c00',
+        'linestyle': '--',
+        'marker': 's',
+        'label': 'Hidden size = 128; Dropout rate = 0.05'
+    },
+    'set6': {
+        'single_color': '#0080ab',
+        'linestyle': '--',
+        'marker': 's',
+        'label': 'Hidden size = 128; Dropout rate = 0.1'
+    },
+    'set7': {
+        'single_color': '#fcba03',
+        'linestyle': '--',
+        'marker': 's',
+        'label': 'Hidden size = 128; Dropout rate = 0.2'
+    },
+    'set8': {
+        'single_color': '#bd1c8a',
+        'linestyle': '--',
+        'marker': 's',
+        'label': 'Hidden size = 128; Dropout rate = 0.4'
+    },
+    'set9': {
+        'single_color': '#b04c00',
+        'linestyle': '-.',
+        'marker': 's',
+        'label': 'Hidden size = 192; Dropout rate = 0.05'
+    },
+    'set10': {
+        'single_color': '#0080ab',
+        'linestyle': '-.',
+        'marker': 's',
+        'label': 'Hidden size = 192; Dropout rate = 0.1'
+    },
+    'set11': {
+        'single_color': '#fcba03',
+        'linestyle': '-.',
+        'marker': 's',
+        'label': 'Hidden size = 192; Dropout rate = 0.2'
+    },
+    'set12': {
+        'single_color': '#bd1c8a',
+        'linestyle': '-.',
+        'marker': 's',
+        'label': 'Hidden size = 192; Dropout rate = 0.4'
+    },
+    'set13': {
+        'single_color': '#b04c00',
+        'linestyle': ':',
+        'marker': 's',
+        'label': 'Hidden size = 256; Dropout rate = 0.05'
+    },
+    'set14': {
+        'single_color': '#0080ab',
+        'linestyle': ':',
+        'marker': 's',
+        'label': 'Hidden size = 256; Dropout rate = 0.1'
+    },
+    'set15': {
+        'single_color': '#fcba03',
+        'linestyle': ':',
+        'marker': 's',
+        'label': 'Hidden size = 256; Dropout rate = 0.2'
+    },
+    'set16': {
+        'single_color': '#bd1c8a',
+        'linestyle': ':',
+        'marker': 's',
+        'label': 'Hidden size = 256; Dropout rate = 0.4'
+    },
     'ealstm_MSE': {
         'ensemble_color': '#1b9e77',
         'single_color': '#b3e2cd',
         'linestyle': '--',
         'marker': 's',
         'label': 'EA-LSTM MSE'
+    },
+    'seqlen1': {
+        'ensemble_color': '#d95f02',
+        'single_color': '#000000',
+        'linestyle': '-',
+        'marker': 's',
+        'label': 'One day'
+    },
+    'seqlen7': {
+        'ensemble_color': '#d95f02',
+        'single_color': '#b04c00',
+        'linestyle': '-',
+        'marker': 's',
+        'label': 'One week (7 days)'
+    },
+    'seqlen14': {
+        'ensemble_color': '#7570b3',
+        'single_color': '#0080ab',
+        'linestyle': '--',
+        'marker': 's',
+        'label': 'Two weeks (14 days)'
+    },
+    'seqlen21': {
+        'ensemble_color': '#7570b3',
+        'single_color': '#fcba03',
+        'linestyle': '-',
+        'marker': 's',
+        'label': 'Three weeks (21 days)'
+    },
+    'seqlen30': {
+        'ensemble_color': '#7570b3',
+        'single_color': '#bd1c8a',
+        'linestyle': '--',
+        'marker': 's',
+        'label': 'One month (30 days)'
     },
     'lstm_NSE': {
         'ensemble_color': '#d95f02',
