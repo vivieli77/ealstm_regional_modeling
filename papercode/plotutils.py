@@ -59,97 +59,97 @@ model_draw_style = {
         'label': 'EA-LSTM NSE'
     },
     'set1': {
-        'single_color': '#b04c00',
+        'single_color': '#9e30bf',
         'linestyle': '-',
         'marker': 's',
         'label': 'Hidden size = 64; Dropout rate = 0.05'
     },
     'set2': {
-        'single_color': '#0080ab',
+        'single_color': '#d39de3',
         'linestyle': '-',
         'marker': 's',
         'label': 'Hidden size = 64; Dropout rate = 0.1'
     },
     'set3': {
-        'single_color': '#fcba03',
+        'single_color': '#b85600',
         'linestyle': '-',
         'marker': 's',
         'label': 'Hidden size = 64; Dropout rate = 0.2'
     },
     'set4': {
-        'single_color': '#bd1c8a',
+        'single_color': '#ffbf87',
         'linestyle': '-',
         'marker': 's',
         'label': 'Hidden size = 64; Dropout rate = 0.4'
     },
     'set5': {
-        'single_color': '#b04c00',
+        'single_color': '#9e30bf',
         'linestyle': '--',
         'marker': 's',
         'label': 'Hidden size = 128; Dropout rate = 0.05'
     },
     'set6': {
-        'single_color': '#0080ab',
+        'single_color': '#d39de3',
         'linestyle': '--',
         'marker': 's',
         'label': 'Hidden size = 128; Dropout rate = 0.1'
     },
     'set7': {
-        'single_color': '#fcba03',
+        'single_color': '#b85600',
         'linestyle': '--',
         'marker': 's',
         'label': 'Hidden size = 128; Dropout rate = 0.2'
     },
     'set8': {
-        'single_color': '#bd1c8a',
+        'single_color': '#ffbf87',
         'linestyle': '--',
         'marker': 's',
         'label': 'Hidden size = 128; Dropout rate = 0.4'
     },
     'set9': {
-        'single_color': '#b04c00',
+        'single_color': '#9e30bf',
         'linestyle': '-.',
         'marker': 's',
         'label': 'Hidden size = 192; Dropout rate = 0.05'
     },
     'set10': {
-        'single_color': '#0080ab',
+        'single_color': '#d39de3',
         'linestyle': '-.',
         'marker': 's',
         'label': 'Hidden size = 192; Dropout rate = 0.1'
     },
     'set11': {
-        'single_color': '#fcba03',
+        'single_color': '#b85600',
         'linestyle': '-.',
         'marker': 's',
         'label': 'Hidden size = 192; Dropout rate = 0.2'
     },
     'set12': {
-        'single_color': '#bd1c8a',
+        'single_color': '#ffbf87',
         'linestyle': '-.',
         'marker': 's',
         'label': 'Hidden size = 192; Dropout rate = 0.4'
     },
     'set13': {
-        'single_color': '#b04c00',
+        'single_color': '#9e30bf',
         'linestyle': ':',
         'marker': 's',
         'label': 'Hidden size = 256; Dropout rate = 0.05'
     },
     'set14': {
-        'single_color': '#0080ab',
+        'single_color': '#d39de3',
         'linestyle': ':',
         'marker': 's',
         'label': 'Hidden size = 256; Dropout rate = 0.1'
     },
     'set15': {
-        'single_color': '#fcba03',
+        'single_color': '#b85600',
         'linestyle': ':',
         'marker': 's',
         'label': 'Hidden size = 256; Dropout rate = 0.2'
     },
     'set16': {
-        'single_color': '#bd1c8a',
+        'single_color': '#ffbf87',
         'linestyle': ':',
         'marker': 's',
         'label': 'Hidden size = 256; Dropout rate = 0.4'
@@ -163,35 +163,35 @@ model_draw_style = {
     },
     'seqlen1': {
         'ensemble_color': '#d95f02',
-        'single_color': '#000000',
-        'linestyle': '-',
+        'single_color': '#e8aa00',
+        'linestyle': '--',
         'marker': 's',
         'label': 'One day'
     },
     'seqlen7': {
         'ensemble_color': '#d95f02',
-        'single_color': '#b04c00',
-        'linestyle': '-',
+        'single_color': '#c2135c',
+        'linestyle': '--',
         'marker': 's',
         'label': 'One week (7 days)'
     },
     'seqlen14': {
-        'ensemble_color': '#7570b3',
-        'single_color': '#0080ab',
+        'ensemble_color': '#1b9e77',
+        'single_color': '#1b9e77',
         'linestyle': '--',
         'marker': 's',
         'label': 'Two weeks (14 days)'
     },
     'seqlen21': {
         'ensemble_color': '#7570b3',
-        'single_color': '#fcba03',
-        'linestyle': '-',
+        'single_color': '#d95f02',
+        'linestyle': '--',
         'marker': 's',
         'label': 'Three weeks (21 days)'
     },
     'seqlen30': {
         'ensemble_color': '#7570b3',
-        'single_color': '#bd1c8a',
+        'single_color': '#7570b3',
         'linestyle': '--',
         'marker': 's',
         'label': 'One month (30 days)'
@@ -210,12 +210,47 @@ model_draw_style = {
         'marker': 's',
         'label': 'LSTM MSE'
     },
+    'nostat': {
+        'ensemble_color': '#1b9e77',
+        'single_color': '#b3e2cd',
+        'linestyle': '--',
+        'marker': 's',
+        'label': 'Excluding demographic data'
+    },
+    'nomob': {
+        'ensemble_color': '#d95f02',
+        'single_color': '#fdcdac',
+        'linestyle': '--',
+        'marker': 's',
+        'label': 'Excluding mobility data'
+    },
     'lstm_no_static_MSE': {
         'ensemble_color': '#7570b3',
         'single_color': '#cbd5e8',
         'linestyle': '--',
         'marker': '^',
         'label': 'LSTM (no static inputs) MSE'
+    },
+    'mobility': {
+        'ensemble_color': '#7570b3',
+        'single_color': '#cbd5e8',
+        'linestyle': '--',
+        'marker': '^',
+        'label': 'Including mobility data'
+    },
+    'all': {
+        'ensemble_color': '#7570b3',
+        'single_color': '#cbd5e8',
+        'linestyle': '--',
+        'marker': '^',
+        'label': 'Environmental, demographic, and mobility data'
+    },
+    'static': {
+        'ensemble_color': '#7570b3',
+        'single_color': '#cbd5e8',
+        'linestyle': '--',
+        'marker': '^',
+        'label': 'Including demographic data'
     },
     'lstm_no_static_NSE': {
         'ensemble_color': '#7570b3',

@@ -335,8 +335,8 @@ def train(cfg):
 
     # create model and optimizer
     input_size_stat = 0 if cfg["no_static"] else 14
-    #input_size_dyn = 5 if (cfg["no_static"] or not cfg["concat_static"]) else 32
-    input_size_dyn = 5 if (cfg['camels_root'] == "data") else 6
+    input_size_dyn = 6 if (cfg["no_static"] or not cfg["concat_static"]) else 32
+    #input_size_dyn = 5 if (cfg['camels_root'] == "data") else 6
     model = Model(input_size_dyn=input_size_dyn,
                   input_size_stat=input_size_stat,
                   hidden_size=cfg["hidden_size"],
@@ -416,13 +416,6 @@ def train_epoch(model: nn.Module, optimizer: torch.optim.Optimizer, loss_func: n
 
         # MSELoss
         if use_mse:
-            """print('Predictions')
-            print('--------------------------')
-            print(predictions)
-            print('--------------------------')
-            print('y')
-            print('--------------------------')
-            print(y)"""
             loss = loss_func(predictions, y)
 
         # NSELoss needs std of each basin for each sample
@@ -465,7 +458,9 @@ def evaluate(user_cfg: Dict):
 
     # create model
     input_size_stat = 0 if run_cfg["no_static"] else 14
-    input_size_dyn = 6 if (run_cfg["no_static"] or not run_cfg["concat_static"]) else 32
+    #input_size_dyn = 5 if (cfg['camels_root'] == "data") else 6
+    #input_size_dyn = 5 if (cfg["no_static"] or not cfg["concat_static"]) else 32
+    input_size_dyn = 6
     model = Model(input_size_dyn=input_size_dyn,
                   input_size_stat=input_size_stat,
                   hidden_size=run_cfg["hidden_size"],

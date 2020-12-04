@@ -1,0 +1,5 @@
+model_type,ensemble,mean,std_mean,median,std_median
+Excluding mobility data,False,,,,
+Excluding mobility data,True,,,,
+Including mobility data,False,,,,
+Including mobility data,True,,,,

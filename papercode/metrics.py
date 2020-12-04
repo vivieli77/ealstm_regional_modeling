@@ -161,7 +161,6 @@ def calc_me(obs: np.ndarray, sim: np.ndarray) -> float:
         raise RuntimeError("obs and sim must be of the same length.")
 
     me_val = np.mean(sim - obs)
-    
     return me_val
 
 def calc_corr(obs: np.ndarray, sim: np.ndarray) -> float:
